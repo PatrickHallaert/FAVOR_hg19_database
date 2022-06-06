@@ -20,7 +20,7 @@ vcf <- fread("/Volumes/HZD/FAOVRDB/hg19/CADD/clinvar_20220528.vcf")
 
 fread("hg19_CADD_SNVs_inclAnno_chr22.txt")
 
-# I was planning to use Dplyr’s left_join (this subsequent step was not possible due to prior error).
+# I was planning to use Dplyr’s left_join as shown below: (this subsequent step was not possible due to the prior error)
 
 left_join(hg19_CADD_SNVs_inclAnno_chr22.txt, clinvar_20220528.vcf, by = c("#Chrom" = "#CHROM"))
 
