@@ -1,4 +1,4 @@
-### My first attempt was to use R itself through terminal ###
+###### My first attempt was to use R itself through terminal ######
 
 # Open R from terminal
 
@@ -26,12 +26,11 @@ left_join(hg19_CADD_SNVs_inclAnno_chr22.txt, clinvar_20220528.vcf, by = c("#Chro
 
 # However, this technique is not viable as we encounter memory issues handling the large (75+ gigabyte) Chr22 file.
 
-### My second attempt using only the XSV tool within terminal ###
+###### My second attempt using only the XSV tool within terminal ######
 
 # Open terminal and install xsv using homebrew
 
 brew install xsv
-
 
 # Left join the two files together based on matching chromosome values and pipe to XSV table to visualize it readily within terminal.
 
