@@ -14,3 +14,8 @@ chr224col3milchar <- as.character(chr224col3mil)
 left_join(chr224col3milchar, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
 
 #Error in UseMethod("left_join") : no applicable method for 'left_join' applied to an object of class "character"
+
+is.data.frame("chr224col3milchar") # False
+is.data.frame("clinvar") # False
+as.data.frame("chr224col3milchar")
+as.data.frame("clinvar")
