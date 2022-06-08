@@ -1,21 +1,2 @@
 
-# Trying to match 4 columns across both files
-
-Chr22_4Columns <- fread("/Volumes/HZU/CADD/hg19/hg19_CADD_SNVs_inclAnno_chr22_F1-4.txt")
-chr22_4Col <- as.character(Chr22_4Columns)
 left_join(chr22_4Col, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
-
-# No output?
-
-# Trying to use 4-Column, 3 million row data instead:
-
-chr224col3mil <- fread("/Volumes/HZU/CADD/hg19/chr22F1-43m.txt")
-chr224col3milchar <- as.character(chr224col3mil)
-left_join(chr224col3milchar, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
-
-#Error in UseMethod("left_join") : no applicable method for 'left_join' applied to an object of class "character"
-
-is.data.frame("chr224col3milchar") # False
-is.data.frame("clinvar") # False
-as.data.frame("chr224col3milchar")
-as.data.frame("clinvar")
