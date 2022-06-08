@@ -1,0 +1,2 @@
+chr22_4Col <- as.character(Chr22_4Columns)
+left_join(chr22_4Col, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
