@@ -27,6 +27,7 @@ Clinvarcadd4cf <- left_join(Chr22_4Columns, clinvar, by = c('#Chrom' = '#CHROM',
 
                                                               ## In the Command Line: ##
 
-awk -F\| '{print>$1}' hg19_Eigen_coding_04092016.txt #
-awk -F, '{print >  "hg19_Eigen_coding_04092016.txt_"$1}' hg19_Eigen_coding_04092016.txt
-awk -F';' '{print > $1".txt"}' hg19_Eigen_coding_04092016.txt
+gzip -k hg19_Eigen_coding_04092016.txt
+gunzip -c hg19_Eigen_coding_04092016.txt.gz | gawk 'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_Eigen"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
+gzip -k hg19_dbnsfp33a.txt
+gunzip -c hg19_dbnsfp33a.txt.gz | gawk 'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_Eigen"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
