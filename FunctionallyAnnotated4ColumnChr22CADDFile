@@ -26,6 +26,7 @@ Clinvarcadd4cf <- left_join(Chr22_4Columns, clinvar, by = c('#Chrom' = '#CHROM',
 # Now, slice other functional annotation files. We will then isolate the Chr22 sub-section of each functional annotation file to add to the Clinvarcadd4cf table #
 
                                                               ## In the Command Line: ##
-gzip -k hg19_Eigen_coding_04092016.txt 
-gunzip -c hg19_Eigen_coding_04092016.txt.gz | gawk'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_CADD_SNVs_inclAnno_chr"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
-awk -F\| '{print>$1}' hg19_Eigen_coding_04092016.txt # NOT THIS ONE
+
+awk -F\| '{print>$1}' hg19_Eigen_coding_04092016.txt #
+awk -F, '{print >  "hg19_Eigen_coding_04092016.txt_"$1}' hg19_Eigen_coding_04092016.txt
+awk -F';' '{print > $1".txt"}' hg19_Eigen_coding_04092016.txt
