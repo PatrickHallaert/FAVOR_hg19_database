@@ -1,16 +1,3 @@
-### In the Command Line ###
-
- cd /Volumes/HZU/CADD/hg19/
- 
-# Create 1/3/5/10 million divisions of the original Chr22 CADD file:
-
--3000000 hg19_CADD_SNVs_inclAnno_chr22.txt  > chr22h3m.txt
--1000000 hg19_CADD_SNVs_inclAnno_chr22.txt  > chr221m.txt
--5000000 hg19_CADD_SNVs_inclAnno_chr22.txt  > chr225m.txt
--10000000 hg19_CADD_SNVs_inclAnno_chr22.txt  > chr2210m.txt
-
-### In RStudio ###
-
 rm(list=ls())
 setwd("~/Desktop/Chromosome22")
 install.packages("data.table")
@@ -19,30 +6,26 @@ install.packages("tidyverse")
 library(tidyverse)
 chr223m <- fread("/Volumes/HZU/CADD/hg19/chr223m.txt")
 clinvar <- fread("/Volumes/HZU/CADD/hg19/clinvar_20220528.vcf")
-
 left_join(chr223m, clinvar, by = c("#Chrom" = "#CHROM"))
-
 #Error in `left_join()`:
 #Can't join on `x$#Chrom` x `y$#Chrom` because of incompatible types.
 #`x$#Chrom` is of type <integer>>.
 #`y$#Chrom` is of type <character>>.
-
 chr223m %>% 
   mutate("#Chrom" = as.character("#Chrom")) %>% 
-  left_join(clinvar, by=NULL, copy = TRUE, suffix = c(".x", ".y"), na_matches)
-  
+  left_join(clinvar, by=NULL, copy = TRUE, na_matches)
 # Error in `left_join()`:
 # `by` must be supplied when `x` and `y` have no common variables.
 # use by = character()` to perform a cross-join.
 
-# Maybe there are no matches with only 3 million rows. Let's try 5 million:
+### Maybe there are no matches with only 3 million rows. Let's try 5 million:
 
 chr225m <- fread("/Volumes/HZU/CADD/hg19/chr225m.txt")
 chr225m %>% 
   mutate("#Chrom" = as.character("#Chrom")) %>% 
   left_join(clinvar, by=NULL, copy = TRUE, suffix = c(".x", ".y"), na_matches)
 
-# Nope. 10 million?
+### Nope. 10 million?
 
 chr2210m <- fread("/Volumes/HZU/CADD/hg19/chr2210m.txt")
 chr2210m %>% 
@@ -52,22 +35,63 @@ chr2210m %>%
 # Let's see if it's the column names
 
 chr223mchar <- as.character(chr223m)
-left_join(chr223mchar, clinvar, by = c("#Chrom" = "#CHROM"))
 merged <- left_join(chr223mchar, clinvar, by = c("#Chrom" = "#CHROM"))
 
-# Using the first 4 columns or chr22 CADD to merge entirety of the chromosome to the ClinVar data.
-# Have to match the 4 columns, not just Chrom columns 
+### Aight we switching projects ###
+# Using the first 4 columns or chr22 CADD to merge entirety of the chromosome to the ClinVar data.#
+# Have to match the 4 columns, not just Chrom columns #
 
 Chr22_4Columns <- fread("/Volumes/HZU/CADD/hg19/hg19_CADD_SNVs_inclAnno_chr22_F1-4.txt")
+View("Chr22_4Columns")
 chr22_4Col <- as.character(Chr22_4Columns)
-left_join(chr22_4Col, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
-
-# No Output?
-
-# Trying to use 4-Column, 3 million row data instead:
 
 chr224col3mil <- fread("/Volumes/HZU/CADD/hg19/chr22F1-43m.txt")
 chr224col3milchar <- as.character(chr224col3mil)
 left_join(chr224col3milchar, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
 
-#Error in UseMethod("left_join") : no applicable method for 'left_join' applied to an object of class "character"
+#Error in UseMethod("left_join") : 
+#  no applicable method for 'left_join' applied to an object of class "character"
+
+#Both must be data frames? 
+
+is.data.frame("chr22F1-43m.txt")
+is.data.frame("chr22_4Col")
+as.data.frame("chr224col3milchar")
+is.data.frame("clinvar")
+as.data.frame("clinvar")
+clinvar %>%
+  unnest %>%
+  left_join(chr224col3mil, ., by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+left_join(chr224col3milchar, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+# Error in UseMethod("left_join") : 
+# no applicable method for 'left_join' applied to an object of class "character"
+as.data.frame("clinvar")
+ch223mdataframe <- as.data.frame("chr224col3milchar")
+class(ch223mdataframe$`#Chrom`) #NULL???
+View(ch223mdataframe) # WTF
+class(clinvar$`#CHROM`) #"character"
+
+### Let's Start Over ###
+
+chr224col3mil %>% mutate(`#Chrom`=as.character(`#Chrom`)) #This one doesn't work
+
+
+chr224col3mil$`#Chrom` <- as.character(chr224col3mil$`#Chrom`) #THIS IS THE ONE!!!
+left_join(chr224col3mil, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+Clinvarcadd4column <- left_join(chr224col3mil, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+Clinvarcadd4column2 <- left_join(chr224col3mil, clinvar, by = c('#Chrom' = '#CHROM')) #Vector Memory Exhausted
+
+#ClinVar all NA?
+ 
+# Full 4 Column
+
+Chr22_4Columns <- fread("/Volumes/HZU/CADD/hg19/hg19_CADD_SNVs_inclAnno_chr22_F1-4.txt")
+Chr22_4Columns$`#Chrom` <- as.character(Chr22_4Columns$`#Chrom`)
+Clinvarcadd4cf <- left_join(Chr22_4Columns, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+
+# Let's do 3 million?
+
+chr223m <- fread("/Volumes/HZU/CADD/hg19/chr223m.txt")
+chr223m$`#Chrom` <- as.character(chr223m$`#Chrom`)
+chr223mClinvar <- left_join(chr223m, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+chr223mClinvar2 <- left_join(chr223m, clinvar, by = c('#Chrom' = '#CHROM')) #Vector Memory Exhausted
