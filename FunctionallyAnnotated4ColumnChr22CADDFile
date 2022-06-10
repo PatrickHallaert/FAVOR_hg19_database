@@ -22,6 +22,7 @@ chr224col3mil <- fread("/Volumes/HZU/CADD/hg19/chr22F1-43m.txt")
 clinvar <- fread("/Volumes/HZU/CADD/hg19/clinvar_20220528.vcf")
 chr224col3mil$`#Chrom` <- as.character(chr224col3mil$`#Chrom`)
 left_join(chr224col3mil, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+Clinvarcadd4c3m <- left_join(chr224col3mil, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
 
 # Addition of ClinVar database to 4-column, 3-million row Chr22 CADD file complete
 
@@ -33,3 +34,22 @@ gzip -k hg19_Eigen_coding_04092016.txt
 gunzip -c hg19_Eigen_coding_04092016.txt.gz | gawk 'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_Eigen"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
 gzip -k hg19_dbnsfp33a.txt
 gunzip -c hg19_dbnsfp33a.txt.gz | gawk 'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_dbnsfp33a"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
+
+# Look at column names for the chr22-isolated functional annotated files in order to prepare for the left_join we will do in R
+
+head -10 hg19_Eigen22.txt
+head -10 hg19_dbnsfp33a22.txt
+head -10 hg19_Eigen22.txt > hg19_Eigen22.tsv
+head -10 hg19_dbnsfp33a22.txt > hg19_dbnsfp33a22.tsv
+
+# The files have no headers for any of the columns, so let's add some and check if everything is okay.
+
+echo -e "#Chrom\tPos\tPos2\tRef\tAlt" | cat - hg19_Eigen22.txt > headers_hg19_Eigen22.txt
+echo -e "#Chrom\tPos\tPos2\tRef\tAlt" | cat - hg19_dbnsfp33a22.txt > headers_hg19_dbnsfp33a22.txt
+head -10 headers_hg19_Eigen22.txt
+head -10 headers_hg19_dbnsfp33a22.txt
+
+                                                                     ## In R: ##
+                                                                     
+                                                 
+
