@@ -51,5 +51,20 @@ head -10 headers_hg19_dbnsfp33a22.txt
 
                                                                      ## In R: ##
                                                                      
+Eigen <- fread("/Volumes/HZM/FAOVRDB/hg19/humandb/headers_hg19_Eigen22.txt")
+View(Eigen)
+dbnsfp33a <- fread("/Volumes/HZM/FAOVRDB/hg19/humandb/headers_hg19_dbnsfp33a22.txt")
+View(dbnsfp33a)
+Clinvarcadd4c3m$`#Chrom` <- as.character(Clinvarcadd4c3m$`#Chrom`)
+Eigen$`#Chrom` <- as.character(Eigen$`#Chrom`)
+EigenandClinVar <- left_join(Clinvarcadd4c3m, Eigen, by = c('#Chrom', 'Pos', 'Ref', 'Alt'))
+
+#We have now added the Eigen functional annotations to the table containing the Chr22 CADD file and the ClinVar file.
+
+dbnsfp33a$`#Chrom` <- as.character(dbnsfp33a$`#Chrom`)
+ClinVarEigendbnsfp33a <- left_join(EigenandClinVar, dbnsfp33a, by = c('#Chrom', 'Pos', 'Ref', 'Alt'))
+
+#We have now added the dbnsfp33a functional annotations to the CADD chr2 data in addition to the Eigen + ClinVar data.
+                                                                     
                                                  
 
