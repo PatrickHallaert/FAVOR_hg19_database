@@ -72,6 +72,7 @@ noNAs <- na.omit(ClinVarEigendbnsfp33a)
 
 #Data frame is empty - this shows that there are no rows that contain no NAs.
 # This does not mean they are all NA however; code below shows that there are quite a few matches (13,975) with one of the functional annotation datasets (Eigen, which represent rows Pos2.x to V22.x).
+
 sum(is.na(ClinVarEigendbnsfp33a$ID)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$QUAL)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$FILTER)) #All 2,999,998 are NA
