@@ -120,6 +120,5 @@ sum(is.na(ClinVarEigendbnsfp33a$V26)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$V27)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$V28)) #All 2,999,998 are NA
 
-#If all NA, then we try the process with the 25 million 4 column CADD chr22 file instead.
 # There can be duplications of the ID due to matching values from different functional annotation databases. How do we prevent duplicates?
 
