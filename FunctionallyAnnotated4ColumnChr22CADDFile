@@ -120,7 +120,13 @@ sum(is.na(ClinVarEigendbnsfp33a$V26)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$V27)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$V28)) #All 2,999,998 are NA
 
-# There can be duplications of the ID due to matching values from different functional annotation databases. How do we prevent duplicates?
+#Check for deduped data
 
 deduped <- duplicated(ClinVarEigendbnsfp33a[,1:4])
 ClinVarEigendbnsfp33a[deduped,]
+
+#Search for TRUE's in the logical vector
+
+sum(deduped, na.rm = (TRUE)) # In the Sum function, TRUE is automatically converted to a value of 1 and False is converted to a value of 0. Sum = 811143
+
+# Sum = 811143; 811143 TRUE Values?
