@@ -18,12 +18,12 @@ install.packages("data.table")
 library(data.table)
 install.packages("tidyverse")
 library(tidyverse)
+chr224col3mil <- fread("/Volumes/HZU/CADD/hg19/chr22F1-43m.txt")
 clinvar <- fread("/Volumes/HZU/CADD/hg19/clinvar_20220528.vcf")
-Chr22_4Columns <- fread("/Volumes/HZU/CADD/hg19/hg19_CADD_SNVs_inclAnno_chr22_F1-4.txt")
-Chr22_4Columns$`#Chrom` <- as.character(Chr22_4Columns$`#Chrom`)
-Clinvarcadd4cf <- left_join(Chr22_4Columns, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
+chr224col3mil$`#Chrom` <- as.character(chr224col3mil$`#Chrom`)
+left_join(chr224col3mil, clinvar, by = c('#Chrom' = '#CHROM', 'Pos' = 'POS', 'Ref' = 'REF', 'Alt' = 'ALT'))
 
-# Addition of ClinVar Database to 4-Column Chr22 CADD file complete!
+# Addition of ClinVar database to 4-column, 3-million row Chr22 CADD file complete
 
 # Now, slice other functional annotation files. We will then isolate the Chr22 sub-section of each functional annotation file to add to the Clinvarcadd4cf table #
 
