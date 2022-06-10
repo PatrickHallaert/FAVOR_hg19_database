@@ -66,5 +66,59 @@ ClinVarEigendbnsfp33a <- left_join(EigenandClinVar, dbnsfp33a, by = c('#Chrom', 
 
 #We have now added the dbnsfp33a functional annotations to the CADD chr2 data in addition to the Eigen + ClinVar data.
                                                                      
-                                                 
+# Now we check if all the data is NA (no matches) or if there are matches. If there are matches, how many?
+
+noNAs <- na.omit(ClinVarEigendbnsfp33a)
+
+#Data frame is empty - this shows that there are no rows that contain no NAs.
+# This does not mean they are all NA however; code below shows that there are quite a few matches (13,975) with one of the functional annotation datasets (Eigen, which represent rows Pos2.x to V22.x).
+sum(is.na(ClinVarEigendbnsfp33a$ID)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$QUAL)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$FILTER)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$INFO)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$Pos2.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V6.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V7.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V8.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V9.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V10.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V11.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V12.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V13.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V14.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V15.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V16.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V17.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V18.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V19.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V20.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V21.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$V22.x)) #2,986,023 are NA, 13,975 have values.
+sum(is.na(ClinVarEigendbnsfp33a$Pos2.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V6.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V7.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V8.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V9.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V10.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V11.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V12.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V13.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V14.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V15.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V16.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V17.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V18.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V19.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V20.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V21.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V22.y)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V23)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V24)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V25)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V26)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V27)) #All 2,999,998 are NA
+sum(is.na(ClinVarEigendbnsfp33a$V28)) #All 2,999,998 are NA
+
+#If all NA, then we try the process with the 25 million 4 column CADD chr22 file instead.
+# There can be duplications of the ID due to matching values from different functional annotation databases. How do we prevent duplicates?
 
