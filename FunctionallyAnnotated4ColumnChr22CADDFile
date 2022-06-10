@@ -122,3 +122,5 @@ sum(is.na(ClinVarEigendbnsfp33a$V28)) #All 2,999,998 are NA
 
 # There can be duplications of the ID due to matching values from different functional annotation databases. How do we prevent duplicates?
 
+deduped <- duplicated(ClinVarEigendbnsfp33a[,1:4])
+ClinVarEigendbnsfp33a[deduped,]
