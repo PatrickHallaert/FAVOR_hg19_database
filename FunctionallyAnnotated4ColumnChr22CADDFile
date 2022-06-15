@@ -120,13 +120,8 @@ sum(is.na(ClinVarEigendbnsfp33a$V26)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$V27)) #All 2,999,998 are NA
 sum(is.na(ClinVarEigendbnsfp33a$V28)) #All 2,999,998 are NA
 
-#Check for deduped data
+# Remove duplicate data
 
-deduped <- duplicated(ClinVarEigendbnsfp33a[,1:4])
-ClinVarEigendbnsfp33a[deduped,]
-
-#Search for TRUE's in the logical vector
-
-sum(deduped, na.rm = (TRUE)) # In the Sum function, TRUE is automatically converted to a value of 1 and False is converted to a value of 0. Sum = 811143
-
-# Sum = 811143; 811143 TRUE Values?
+df_deduped <- ClinVarEigendbnsfp33a %>%
+  distinct(Pos, Ref, Alt, .keep_all = TRUE)
+head(df_deduped)
