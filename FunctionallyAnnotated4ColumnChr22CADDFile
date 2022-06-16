@@ -5,8 +5,8 @@
 
 brew install xsv
 gunzip -c whole_genome_SNVs_inclAnno.tsv.gz | gawk'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_CADD_SNVs_inclAnno_chr"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
-head -3000000 hg19_CADD_SNVs_inclAnno_chr22.txt | sed 's/\t/,/g' > hg19_CADD_SNVs_inclAnno_chr22_h3M.csv
 cut -f 1-4 hg19_CADD_SNVs_inclAnno_chr22.txt > hg19_CADD_SNVs_inclAnno_chr22_F1-4.txt
+head -3000000 hg19_CADD_SNVs_inclAnno_chr22_F1-4.txt | sed 's/\t/,/g' > hg19_CADD_SNVs_inclAnno_chr22_F1-4_3M.csv
 
 # For now, we will use the first 4 columns of the Ch22 file (hg19_CADD_SNVs_inclAnno_chr22_F1-4.txt) for less memory intensive work #
 
@@ -32,7 +32,8 @@ Clinvarcadd4c3m <- left_join(chr224col3mil, clinvar, by = c('#Chrom' = '#CHROM',
 
 gzip -k hg19_Eigen_coding_04092016.txt
 gunzip -c hg19_Eigen_coding_04092016.txt.gz | gawk 'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_Eigen"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
-gzip -k hg19_dbnsfp33a.txt
+gzip -k hg19_
+sfp33a.txt
 gunzip -c hg19_dbnsfp33a.txt.gz | gawk 'BEGIN{Ch=""}{if($1~"#"){H[FNR]=$0;nh++}else{if($1!=Ch){Ch=$1;Out="hg19_dbnsfp33a"$1".txt";for(i=1;i<=nh;i++){printH[i] >Out}}; print $0 > Out}}' -
 
 # Look at column names for the chr22-isolated functional annotated files in order to prepare for the left_join we will do in R
@@ -55,7 +56,12 @@ Eigen <- fread("/Volumes/HZM/FAOVRDB/hg19/humandb/headers_hg19_Eigen22.txt")
 View(Eigen)
 dbnsfp33a <- fread("/Volumes/HZM/FAOVRDB/hg19/humandb/headers_hg19_dbnsfp33a22.txt")
 View(dbnsfp33a)
-Clinvarcadd4c3m$`#Chrom` <- as.character(Clinvarcadd4c3m$`#Chrom`)
+Clinvarcadd4c3m$`#Chrom` <- as.
+
+
+
+
+(Clinvarcadd4c3m$`#Chrom`)
 Eigen$`#Chrom` <- as.character(Eigen$`#Chrom`)
 EigenandClinVar <- left_join(Clinvarcadd4c3m, Eigen, by = c('#Chrom', 'Pos', 'Ref', 'Alt'))
 
