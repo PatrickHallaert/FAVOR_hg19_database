@@ -24,4 +24,4 @@ The *Dask* python library is integral to the data manipulation used in my code. 
 The *Pandas* library was also useful in my *Truncated_Chr22_Database.ipynb* project; however, due to file sizes and memory issues, it was not employed in the final whole-chromosome code. Nonetheless, it is a great asset.
 
 ### Footnotes
-Note that replicating this code on your end may lead to a different result. The files and data used in my programs were often manipulated prior to use in Python. They are not necessarily identical to their "source". 
+Note that replicating this code on your end may lead to a different result. The files and data used in my programs were often manipulated in the command line prior to use in Python. They are not necessarily identical to their "source". 
